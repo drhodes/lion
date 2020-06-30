@@ -36,6 +36,7 @@ def find_z(p):
     else : theta = math.atan(b)
     
     z = complex(r*math.cos(theta), r*math.sin(theta))
+
     if z == 0:
         return complex(1, 1)
     else:        
@@ -62,9 +63,9 @@ def process_image(img):
     for x in range(0, width):
         for y in range(0, height):
             # transform pixel
-            (x1, y1), color = transform_pixel(pixels, (x, y))
+            point, color = transform_pixel(pixels, (x, y))
             # build dictionary with (coord -> color)
-            output_pixels[(x1, y1)] = color
+            output_pixels[point] = color
 
     # create new image
     output_image = Image.new(mode="RGBA",

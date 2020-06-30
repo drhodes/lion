@@ -48,11 +48,10 @@ def transform_pixel(pixels, p):
     color = pixels[p[0], p[1]]
     # apply the transform
     z = find_z((x0, y0))
-    p2 = z #complex(x0, y0) * z
     # convert new cage coordinate to screen coordinate
-    x1, x2 = from_cage_to_screen((p2.real, p2.imag))
+    point = from_cage_to_screen((z.real, z.imag))
     # add pixel at new location to dictionary (coord -> color)
-    return ((x1, x2), color)
+    return (point, color)
 
 def process_image(img):
     width, height = img.size
@@ -74,7 +73,7 @@ def process_image(img):
     # draw the dictionary
     for point in output_pixels:
         x, y = point
-        if 0 < x < img.size[0] and 0 < y < img.size[1]:
+        if 0 < x < width and 0 < y < height:
             color = output_pixels[point]        
             output_image.putpixel(point, color)
         

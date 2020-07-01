@@ -58,24 +58,22 @@ def process_image(img):
     width, height = img.size
     pixels = img.load() # speed things up.
     
-    output_pixels = {}    
+    output_pixels = []
     # for each pixel in the image
     for x in range(0, width):
         for y in range(0, height):
             # transform pixel
             point, color = transform_pixel(pixels, (x, y))
-            # build dictionary with (coord -> color)
-            output_pixels[point] = color
+            output_pixels.append((point, color))
 
     # create new image
     output_image = Image.new(mode="RGBA",
                              size=img.size,
                              color=(255,255,255,255))
     # draw the dictionary
-    for point in output_pixels:
+    for (point, color) in output_pixels:
         x, y = point
         if 0 < x < width and 0 < y < height:
-            color = output_pixels[point]        
             output_image.putpixel(point, color)
         
     # save the file
